@@ -2,15 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{components/head :: head}" />
+<style>
+     .page-title {
+          font-size: 32px;
+          font-weight: 700;
+     }
+</style>
 
 <body>
      <aside th:replace="~{components/sidebar}">
      </aside>
      <main class="dashboard-container">
-
+          <h1 class="page-title">Hello [[${payload.username}]]</h1>
           <form th:action="@{/dashboard/profile}" class="card form" method="POST" th:object="${payload}">
-               <h1 class="form-title">Hello [[${payload.username}]]</h1>
-               <p>Use this form to change your name.</p>
+               <h1 class="form-title"> Edit your account</h1>
+               <p></p>
                <div class="form-field">
                     <input type="text" class="input" placeholder="Your new name..." th:field="*{username}">
                </div>

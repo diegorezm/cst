@@ -89,7 +89,6 @@
                               <th scope="col" class="col-id">Id</th>
                               <th scope="col">Date</th>
                               <th scope="col">Amount</th>
-                              <th scope="col" class="actions-header">Actions</th>
                          </tr>
                     </thead>
                     <tbody th:each="transaction : ${transactions}" class="table-body">
@@ -101,15 +100,6 @@
                                    Date</td>
                               <td scope="row" class="centered-text">
                                    $[[${transaction.product.productEntity.price}]]
-                              </td>
-                              <td class="actions">
-                                   <form th:action="@{/dashboard/transactions/delete/{id}(id=${transaction.id})}"
-                                        method="post">
-                                        <button class="btn btn-ghost btn-sm">
-                                             <img src="/icons/trash.svg" alt="Delete icon">
-                                        </button>
-                                   </form>
-
                               </td>
                          </tr>
                     </tbody>

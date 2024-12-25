@@ -23,12 +23,19 @@
           display: flex;
           justify-content: space-between;
      }
+
+     .go-back {
+          width: 10%;
+     }
 </style>
 
 <body>
      <aside th:replace="~{components/sidebar}">
      </aside>
      <main class="dashboard-container">
+          <a class="btn btn-ghost go-back" href="/dashboard/products">
+               Go back
+          </a>
           <h1 class="page-title">Product Details</h1>
 
           <div class="navigation">

@@ -10,7 +10,7 @@
 
           <form th:action="@{/dashboard/products/edit/{id}(id=${id})}" class="card form" method="POST"
                th:object="${payload}">
-               <h1 class="form-title">Add New Product</h1>
+               <h1 class="form-title">Editing [[${payload.name}]]</h1>
                <div class="form-field">
                     <input type="text" class="input" placeholder="Product name..." th:field="*{name}">
                     <p th:errors="*{name}" class="fg-red">Name Error</p>
