@@ -1,0 +1,99 @@
+.navbar {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 1em 2em 1em;
+}
+
+.desktop-navitems {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+}
+
+.mobile-navbar {
+     display: none;
+}
+
+
+.mobile-sidebar-links {
+     position: fixed;
+     width: 100vw;
+     height: 100%;
+     background-color: var(--background);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     align-content: center;
+     padding: 1em;
+     box-sizing: border-box;
+     gap: 12px;
+     margin: auto;
+
+     li {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+
+          a {
+               font-size: 22px;
+               width: 90%;
+          }
+     }
+}
+
+
+.auth-btns {
+     display: flex;
+     gap: 12px;
+
+     .user-icon {
+          img {
+               width: 2em;
+          }
+     }
+
+     .options {
+          flex-direction: column;
+          position: absolute;
+          padding: 10px;
+          top: 10%;
+          right: 1%;
+          transition: 300ms;
+
+          a {
+               width: 90%;
+          }
+     }
+}
+
+
+.modal {
+     animation: fadeIn 0.3s ease;
+}
+
+
+@keyframes fadeIn {
+     from {
+          opacity: 0;
+          transform: translateX(100%);
+     }
+
+     to {
+          opacity: 1;
+          transform: translateX(0);
+     }
+}
+
+@media screen and (max-width: 1025px) {
+     .desktop-navitems {
+          display: none;
+     }
+
+     .mobile-navbar {
+          display: block;
+
+     }
+}

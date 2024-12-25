@@ -1,0 +1,82 @@
+<nav class="navbar">
+     <a href="/">
+          <img src="/images/logo.svg" alt="Logo" class="logo-md">
+     </a>
+
+     <ul class="desktop-navitems">
+          <li><a href="/" class="btn btn-link">Home</a></li>
+          <li><a href="/about" class="btn btn-link">About</a></li>
+          <li><a href="/services" class="btn btn-link">Services</a></li>
+          <div sec:authorize="isAnonymous()" class="auth-btns">
+               <li><a href="/auth/login" class="btn btn-secondary">Login</a></li>
+               <li><a href="/auth/register" class="btn btn-primary">Register</a></li>
+          </div>
+          <div sec:authorize="isAuthenticated()" class="auth-btns">
+               <button class="btn btn-ghost user-icon" id="user-icon">
+                    <img src="/icons/account.svg" alt="Account svg">
+               </button>
+               <div class="options card" id="user-btn-options" style="display: none;">
+                    <a href="/dashboard" class="btn btn-link">Dashboard</a>
+                    <form th:action="@{/auth/logout}" method="post">
+                         <button class="btn btn-link" id="options-logout-button">Logout</button>
+                    </form>
+               </div>
+          </div>
+     </ul>
+
+     <div class="mobile-navbar">
+          <button class="btn btn-ghost btn-md" id="mobile-hamburger-button">
+               <img src="/icons/hamburger.svg" alt="Hamburger icon">
+          </button>
+     </div>
+     <div class="modal" id="mobile-sidebar" style="display: none;">
+          <ul class="mobile-sidebar-links">
+               <li><a href="/" class="btn btn-outline">Home</a></li>
+               <li><a href="/about" class="btn btn-outline">About</a></li>
+               <li><a href="/services" class="btn btn-outline">Services</a></li>
+               <li sec:authorize="isAuthenticated()"><a href="/dashboard" class="btn btn-outline">Dashboard</a></li>
+               <li sec:authorize="isAnonymous()"><a href="/auth/login" class="btn btn-outline">Login</a></li>
+               <li sec:authorize="isAnonymous()"><a class="btn btn-outline">Register</a></li>
+          </ul>
+     </div>
+</nav>
+
+<script>
+     const sidebar = document.getElementById("mobile-sidebar")
+     const bugerBtn = document.getElementById("mobile-hamburger-button")
+     const userBtn = document.getElementById("user-icon")
+     const userBtnOptions = document.getElementById("user-btn-options")
+
+     document.addEventListener("click", (e) => {
+          if (!userBtn.contains(e.target) && !userBtnOptions.contains(e.target)) {
+               userBtnOptions.style.display = "none";
+          }
+     });
+
+     bugerBtn.addEventListener("click", () => {
+          toggleSidebar()
+     })
+
+     function toggleSidebar() {
+          const isOpen = sidebar.style.display === "flex"
+          if (isOpen) {
+               sidebar.style.display = "none";
+          } else {
+               sidebar.style.display = "flex";
+          }
+     }
+
+
+     if (userBtn) {
+          userBtn.addEventListener("click", () => {
+               const isOpen = userBtnOptions.style.display === "flex"
+
+               if (isOpen) {
+                    userBtnOptions.style.display = "none";
+               } else {
+                    userBtnOptions.style.display = "flex";
+
+               }
+          })
+     }
+</script>

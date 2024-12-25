@@ -1,0 +1,6 @@
+<a th:fragment="paging(baseURL, pageNum, label, tooltip, active)"
+     th:class="'btn btn-sm ' + (${active} ? 'btn-primary' : 'btn-ghost')"
+     th:href="@{${baseURL} + '?' + (${keyword != null && keyword != '' ? 'keyword=' + keyword + '&' : ''}) + 'page=' + ${pageNum} + '&size=' + ${pageSize}}"
+     th:title="${tooltip}" rel="tooltip">
+     [[${label}]]
+</a>

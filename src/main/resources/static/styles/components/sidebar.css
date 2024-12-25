@@ -1,0 +1,24 @@
+.sidebar {
+     position: fixed;
+     background-color: var(--background-alt);
+     width: 200px;
+     height: 100vh;
+     padding: 15px;
+
+     .dotted {
+          margin-top: 1em;
+          margin-bottom: 1em;
+     }
+
+     .links {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          background-color: var(--background-alt);
+     }
+
+     .btn {
+          gap: 2px;
+          justify-content: start;
+     }
+}

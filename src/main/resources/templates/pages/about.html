@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+<style>
+     .about-container {
+          display: flex;
+          gap: 22px;
+
+          .about-text {
+               display: flex;
+               flex-direction: column;
+               gap: 22px;
+
+               h1 {
+                    letter-spacing: 0.05em;
+                    line-height: 1;
+               }
+
+               p,
+               span {
+                    font-size: 20px;
+                    line-height: 1.6;
+               }
+          }
+
+          img {
+               height: 22em;
+               width: 32em;
+          }
+     }
+
+
+     @media screen and (max-width: 1025px) {
+          .about-container {
+               img {
+                    display: none;
+               }
+
+               .about-text {
+                    align-items: center;
+
+                    h1 {
+                         text-align: center;
+                    }
+
+                    p {
+                         text-align: center;
+                    }
+               }
+          }
+     }
+</style>
+
+<body>
+     <header>
+          <nav th:replace="~{components/navbar}" />
+     </header>
+
+     <main class="container about-container">
+          <div class="about-text">
+               <h1 class="title">Who are we?</h1>
+               <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nulla consectetur a fugiat, sed
+                    sapiente
+                    blanditiis quam architecto commodi? <span class="fg-secondary">Obcaecati nemo laborum</span> atque
+                    quos beatae ipsam quia est nisi
+                    rerum.
+               </p>
+          </div>
+
+          <img src="/images/team-pic.svg" alt="team pic">
+     </main>
+
+     <footer>
+     </footer>
+</body>
+
+</html>

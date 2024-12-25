@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+<style>
+     .page-title {
+          font-size: 32px;
+          font-weight: 700;
+     }
+
+     .table {
+          margin: auto;
+          width: 100%;
+     }
+
+     .input {
+          padding: 8px;
+          width: 60%;
+     }
+
+     .search-form {
+          width: 75%;
+     }
+
+     .hidden {
+          display: none;
+     }
+
+     .pagination {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+     }
+
+     .page-navigation {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+     }
+</style>
+
+<body>
+     <aside th:replace="~{components/sidebar}">
+     </aside>
+     <main class="dashboard-container">
+          <h1 class="page-title">Products available: </h1>
+          <p th:if="${message}">
+               [[${message}]]
+          </p>
+          <div class="page-navigation">
+               <form action="/dashboard/products" method="get" class="search-form">
+                    <input type="text" name="keyword" th:value="${keyword}" placeholder="Search..." class="input">
+                    <button type="submit" class="hidden">Search</button>
+                    <button type="button" id="clear-btn" class="btn btn-ghost">Clear</button>
+               </form>
+               <a th:href="@{/dashboard/products/add}" class="btn btn-primary">New Product</a>
+          </div>
+          <div th:if="${products.size() > 0}">
+               <table class="table">
+                    <thead class="table-header">
+                         <tr>
+                              <th scope="col" class="col-id">Id</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Price</th>
+                              <th scope="col" class="actions-header">Actions</th>
+                         </tr>
+                    </thead>
+                    <tbody th:each="product : ${products}" class="table-body">
+                         <tr>
+                              <th scope="row" class="col-id">[[${product.id}]]</th>
+                              <td>
+                                   <a th:href="@{/dashboard/products/{id}(id=${product.id})}" class="btn-link">
+                                        [[${product.name}]]
+                                   </a>
+                              </td>
+                              <td>[[${product.price}]]</td>
+                              <td class="actions">
+                                   <form th:action="@{/dashboard/products/delete/{id}(id=${product.id})}" method="post">
+                                        <button class="btn btn-ghost btn-sm">
+                                             <img src="/icons/trash.svg" alt="Delete icon">
+                                        </button>
+                                   </form>
+                                   <a th:href="@{/dashboard/products/edit/{id}(id=${product.id})}"
+                                        class="btn btn-ghost btn-sm">
+                                        <img src="/icons/pencil.svg" alt="Edit icon">
+                                   </a>
+                              </td>
+                         </tr>
+                    </tbody>
+               </table>
+          </div>
+          <div th:unless="${products.size() > 0}">
+               <span>No products found!</span>
+          </div>
+          <nav aria-label="Pagination" th:if="${totalPages > 0}">
+               <ul class="pagination">
+                    <!-- First Page -->
+                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                         <a
+                              th:replace="~{components/paging :: paging('/dashboard/products', 1, '<<', 'First Page', false)}"></a>
+                    </li>
+
+
+                    <!-- Ellipsis Before Current Range -->
+                    <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+                         <a class="page-link" href="#">...</a>
+                    </li>
+
+                    <!-- Page Links -->
+                    <li class="page-item"
+                         th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}"
+                         th:classappend="${page == currentPage} ? 'active'">
+                         <a
+                              th:replace="~{components/paging :: paging('/dashboard/products', ${page}, ${page}, 'Page ' + ${page}, ${page == currentPage})}"></a>
+                    </li>
+
+                    <!-- Ellipsis After Current Range -->
+                    <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+                         <a class="page-link" href="#">...</a>
+                    </li>
+
+
+                    <!-- Last Page -->
+                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                         <a
+                              th:replace="~{components/paging :: paging('/dashboard/products', ${totalPages}, '>>', 'Last Page', false)}"></a>
+                    </li>
+               </ul>
+          </nav>
+
+
+
+
+     </main>
+
+     <script th:inline="javascript">
+          const clearBtn = document.getElementById("clear-btn");
+          clearBtn.addEventListener("click", () => {
+               const baseUrl = /*[[@{/dashboard/products}]]*/ '';
+               window.location = baseUrl;
+          });
+     </script>
+</body>
+
+</html>

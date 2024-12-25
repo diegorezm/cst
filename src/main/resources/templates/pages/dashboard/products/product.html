@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+<style>
+     .page-title {
+          font-size: 32px;
+          font-weight: 700;
+     }
+
+     .table {
+          margin: auto;
+          padding: 8px;
+     }
+
+     .entity-info {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+     }
+
+     .navigation {
+          display: flex;
+          justify-content: space-between;
+     }
+</style>
+
+<body>
+     <aside th:replace="~{components/sidebar}">
+     </aside>
+     <main class="dashboard-container">
+          <h1 class="page-title">Product Details</h1>
+
+          <div class="navigation">
+               <div class="entity-info">
+                    <span><strong>Product Name:</strong> [[${entity.name}]]</span>
+                    <span><strong>Price:</strong> $[[${entity.price}]]</span>
+               </div>
+
+               <form th:action="@{/dashboard/product/create/{id}(id=${entity.id})}" method="post">
+                    <button class="btn btn-primary">
+                         New Product
+                    </button>
+               </form>
+
+          </div>
+
+          <!-- Related Products Table -->
+          <div th:if="${products.size() > 0}">
+               <h2>Related Products</h2>
+               <table class="table">
+                    <thead>
+                         <tr>
+                              <th scope="col" class="col-id">ID</th>
+                              <th scope="col">Status</th>
+                              <th scope="col" class="actions-header">Actions</th>
+                         </tr>
+                    </thead>
+                    <tbody th:each="product : ${products}">
+                         <tr>
+                              <td class="col-id">[[${product.id}]]</td>
+                              <td>
+                                   <span th:classappend="${product.sold} ? 'fg-primary' : ''">
+                                        [[${product.sold} ? 'Sold' : 'Unsold']]
+                                   </span>
+                              </td>
+                              <td class="actions">
+                                   <form th:action="@{/dashboard/product/delete/{id}(id=${product.id})}" method="post">
+                                        <button class="btn btn-ghost btn-sm" type="submit">
+                                             <img src="/icons/trash.svg" alt="Delete icon">
+                                        </button>
+                                   </form>
+                                   <form th:action="@{/dashboard/product/sell/{id}(id=${product.id})}" method="post">
+                                        <button class="btn btn-ghost btn-sm">
+                                             <img src="/icons/sell.svg" alt="Sell icon">
+                                   </form>
+                                   </button>
+                              </td>
+                         </tr>
+                    </tbody>
+               </table>
+          </div>
+          <div th:unless="${products.size() > 0}">
+               <span>No related products found!</span>
+          </div>
+     </main>
+
+</body>
+
+</html>

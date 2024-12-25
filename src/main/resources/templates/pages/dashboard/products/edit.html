@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+
+<body>
+     <aside th:replace="~{components/sidebar}">
+     </aside>
+     <main class="dashboard-container">
+
+          <form th:action="@{/dashboard/products/edit/{id}(id=${id})}" class="card form" method="POST"
+               th:object="${payload}">
+               <h1 class="form-title">Add New Product</h1>
+               <div class="form-field">
+                    <input type="text" class="input" placeholder="Product name..." th:field="*{name}">
+                    <p th:errors="*{name}" class="fg-red">Name Error</p>
+               </div>
+
+               <div class="form-field">
+                    <input type="number" class="input" placeholder="Product price..." th:field="*{price}">
+                    <p th:errors="*{price}" class="fg-red">Price Error</p>
+               </div>
+               <p th:if="${message} != null" class="form-warn">
+                    [[${message}]]
+               </p>
+               <!-- Actions -->
+               <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                         Submit
+                    </button>
+                    <a th:href="@{/dashboard/products}" class="btn btn-secondary">
+                         Cancel
+                    </a>
+               </div>
+          </form>
+
+     </main>
+</body>
+
+</html>

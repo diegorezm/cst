@@ -1,0 +1,38 @@
+.form {
+     display: felx;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     gap: 22px;
+     width: 75%;
+
+     margin: auto;
+
+     .form-title {
+          font-size: 22px;
+          font-weight: 700;
+     }
+
+     .form-actions {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          width: 100%;
+          gap: 22px;
+     }
+
+     .form-field {
+          display: flex;
+          flex-direction: column;
+          justify-items: start;
+          text-align: start;
+          gap: 12px;
+          width: 100%;
+     }
+
+     .form-warn {
+          color: var(--red);
+          width: 100%;
+          text-align: start;
+     }
+}

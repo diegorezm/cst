@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+
+
+<body>
+     <style>
+          .page-title {
+               font-size: 32px;
+               font-weight: 700;
+          }
+
+          .table {
+               margin: auto;
+               width: 100%;
+          }
+
+          .input {
+               padding: 8px;
+               width: 60%;
+          }
+
+          .search-form {
+               width: 75%;
+          }
+
+          .hidden {
+               display: none;
+          }
+
+          .pagination {
+               display: flex;
+               align-items: center;
+               gap: 10px;
+               width: 100%;
+          }
+
+          .page-navigation {
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+          }
+
+          .centered-text {
+               text-align: center;
+               width: 50px;
+          }
+
+          .date-form {
+               display: flex;
+               flex-direction: row;
+               gap: 20px;
+               width: 100%;
+               justify-content: end;
+
+               .form-field {
+                    gap: 6px;
+               }
+          }
+     </style>
+
+     <aside th:replace="~{components/sidebar}">
+     </aside>
+     <main class="dashboard-container">
+          <h1 class="page-title">Transactions</h1>
+          <p th:if="${message}">
+               [[${message}]]
+          </p>
+          <form class="date-form" id="report-form">
+               <div class="form-field">
+                    <label for="date1">Start Date:</label>
+                    <input type="date" id="date1" name="date1" class="input" required>
+               </div>
+
+               <div class="form-field">
+                    <label for="date2">End Date:</label>
+                    <input type="date" id="date2" name="date2" class="input" required>
+               </div>
+               <input type="hidden" name="_csrf" value="${_csrf.token}" />
+               <button type="submit" class="btn btn-primary btn-sm">Generate Report</button>
+          </form>
+
+
+          <div th:if="${transactions.size() > 0}">
+               <table class="table">
+                    <thead class="table-header">
+                         <tr>
+                              <th scope="col" class="col-id">Id</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col" class="actions-header">Actions</th>
+                         </tr>
+                    </thead>
+                    <tbody th:each="transaction : ${transactions}" class="table-body">
+                         <tr>
+                              <th scope="row" class="col-id">[[${transaction.id}]]</th>
+
+                              <td class="centered-text"
+                                   th:text="${transaction.date != null ? #temporals.format(transaction.date, 'dd-MM-yyyy, HH:mm') : 'No Date'}">
+                                   Date</td>
+                              <td scope="row" class="centered-text">
+                                   $[[${transaction.product.productEntity.price}]]
+                              </td>
+                              <td class="actions">
+                                   <form th:action="@{/dashboard/transactions/delete/{id}(id=${transaction.id})}"
+                                        method="post">
+                                        <button class="btn btn-ghost btn-sm">
+                                             <img src="/icons/trash.svg" alt="Delete icon">
+                                        </button>
+                                   </form>
+
+                              </td>
+                         </tr>
+                    </tbody>
+               </table>
+          </div>
+          <div th:unless="${transactions.size() > 0}">
+               <span>No transactions found!</span>
+          </div>
+          <nav aria-label="Pagination" th:if="${totalPages > 0}">
+               <ul class="pagination">
+                    <!-- First Page -->
+                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                         <a
+                              th:replace="~{components/paging :: paging('/dashboard/transactions', 1, '<<', 'First Page', false)}"></a>
+                    </li>
+
+                    <!-- Ellipsis Before Current Range -->
+                    <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+                         <a class="page-link" href="#">...</a>
+                    </li>
+
+                    <!-- Page Links -->
+                    <li class="page-item"
+                         th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}"
+                         th:classappend="${page == currentPage} ? 'active'">
+                         <a
+                              th:replace="~{components/paging :: paging('/dashboard/transactions', ${page}, ${page}, 'Page ' + ${page}, ${page == currentPage})}"></a>
+                    </li>
+
+                    <!-- Ellipsis After Current Range -->
+                    <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+                         <a class="page-link" href="#">...</a>
+                    </li>
+
+                    <!-- Last Page -->
+                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                         <a
+                              th:replace="~{components/paging :: paging('/dashboard/transactions', ${totalPages}, '>>', 'Last Page', false)}"></a>
+                    </li>
+               </ul>
+          </nav>
+     </main>
+     <script>
+          const form = document.getElementById("report-form");
+
+          const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+          const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+          form.onsubmit = async (event) => {
+               event.preventDefault();
+
+               // Create FormData object and populate with form data
+               const formData = new FormData(form);
+
+               const requestData = {
+                    start: formData.get("date1"), // Assuming date1 is the start date
+                    end: formData.get("date2")    // Assuming date2 is the end date
+               };
+
+               try {
+                    // Send a POST request with the form data as JSON
+
+                    const response = await fetch('/api/transactions/report', {
+                         method: 'POST',
+                         headers: {
+                              'Content-Type': 'application/json',
+
+                              'Content-Type': 'application/json',
+                              [csrfHeader]: csrfToken,
+
+                         },
+                         body: JSON.stringify(requestData)
+                    });
+
+                    // Check if the response is successful
+                    if (response.ok) {
+                         // Handle the response as a PDF file
+                         const pdfBlob = await response.blob();  // Get the PDF as a Blob
+                         const pdfUrl = URL.createObjectURL(pdfBlob);  // Create a URL for the Blob
+
+                         // Option 1: Open the PDF in a new tab
+                         window.open(pdfUrl, '_blank');
+
+                         // Option 2: Automatically trigger the download
+                         const link = document.createElement('a');
+                         link.href = pdfUrl;
+                         link.download = 'transactions_report.pdf';  // Set the filename for download
+                         link.click();
+                    } else {
+                         console.log(await response.json())
+                         alert('Failed to generate report. Please try again.');
+                    }
+               } catch (error) {
+                    console.error('Error fetching the report:', error);
+                    alert('An error occurred while generating the report.');
+               }
+          }
+     </script>
+
+</body>
+
+</html>

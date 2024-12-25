@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+<style>
+     body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: var(--background);
+          color: var(--foreground);
+     }
+
+     .error-page-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+          text-align: center;
+     }
+
+     .error-page-container h1 {
+          font-size: 2.5rem;
+          color: var(--red);
+          margin-bottom: 1rem;
+     }
+
+     .error-page-container table {
+          border-collapse: collapse;
+          width: 100%;
+          max-width: 600px;
+          margin: 0 auto;
+          text-align: left;
+          background-color: var(--background-alt);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: var(--radius);
+          overflow: hidden;
+     }
+
+     .error-page-container table td,
+     .error-page-container table th {
+          padding: 15px;
+          border: 1px solid var(--background);
+     }
+
+     .error-page-container table th {
+          background-color: var(--primary-color);
+          color: #ffffff;
+          font-weight: bold;
+     }
+
+     .error-page-container table tr:nth-child(even) {
+          background-color: #f9f9f9;
+     }
+
+     .error-page-container a {
+          margin-top: 1rem;
+          color: var(--primary-color);
+          text-decoration: none;
+          font-weight: bold;
+     }
+
+     .error-page-container a:hover {
+          text-decoration: underline;
+     }
+</style>
+
+<body>
+     <header>
+          <nav th:replace="~{components/navbar}" />
+     </header>
+     <main class="container error-page-container">
+          <h1>Something went wrong!</h1>
+          <table>
+               <thead>
+                    <tr>
+                         <th>Detail</th>
+                         <th>Information</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr>
+                         <td>Date</td>
+                         <td th:text="${timestamp}"></td>
+                    </tr>
+                    <tr>
+                         <td>Path</td>
+                         <td th:text="${path}"></td>
+                    </tr>
+                    <tr>
+                         <td>Error</td>
+                         <td th:text="${error}"></td>
+                    </tr>
+                    <tr>
+                         <td>Status</td>
+                         <td th:text="${status}"></td>
+                    </tr>
+                    <tr>
+                         <td>Message</td>
+                         <td th:text="${message}"></td>
+                    </tr>
+               </tbody>
+          </table>
+          <a href="/" th:href="@{/}">Return to Home</a>
+     </main>
+</body>
+
+</html>

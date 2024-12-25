@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+
+<body>
+     <aside th:replace="~{components/sidebar}">
+     </aside>
+     <main class="dashboard-container">
+
+          <form th:action="@{/dashboard/profile}" class="card form" method="POST" th:object="${payload}">
+               <h1 class="form-title">Hello [[${payload.username}]]</h1>
+               <p>Use this form to change your name.</p>
+               <div class="form-field">
+                    <input type="text" class="input" placeholder="Your new name..." th:field="*{username}">
+               </div>
+               <p th:if="${message} != null" class="form-warn">
+                    [[${message}]]
+               </p>
+               <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+               </div>
+          </form>
+
+          <form th:action="@{/auth/logout}" method="POST" class="form card logout-form">
+               <button type="submit" class="btn btn-secondary">
+                    Logout
+               </button>
+          </form>
+     </main>
+</body>
+
+</html>

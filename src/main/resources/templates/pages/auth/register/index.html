@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+
+
+<body>
+     <header>
+          <nav th:replace="~{components/navbar}" />
+     </header>
+
+     <main class="container">
+          <form class="card form" th:action="@{/auth/register}" th:object="${userDTO}" method="post">
+               <h1>Create your account</h1>
+               <div class="input-field">
+                    <input type="text" class="input" placeholder="Your name..." th:field="*{username}">
+                    <p class="fg-red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+               </div>
+               <div class="input-field">
+                    <input type="email" class="input" placeholder="Your email..." th:field="*{email}">
+                    <p class="fg-red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+               </div>
+               <div class="input-field">
+                    <input type="password" class="input" placeholder="Your password..." th:field="*{password}">
+                    <p class="fg-red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+               </div>
+
+               <div class="btn-wrapper">
+                    <button class="btn btn-primary">
+                         Submit
+                    </button>
+                    <p>
+                         Already have an account? <a th:href="@{/auth/login}" class="btn-link fg-hard-green">login!</a>
+                    </p>
+
+               </div>
+          </form>
+     </main>
+
+     <footer>
+     </footer>
+</body>
+
+</html>

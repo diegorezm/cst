@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{components/head :: head}" />
+
+<style>
+     .form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          max-width: 600px;
+          gap: 22px;
+          margin: auto;
+
+          h1 {
+               font-weight: bold;
+               font-size: 22px;
+               text-align: center;
+          }
+
+          .input {
+               width: 97%;
+          }
+
+
+          .btn-wrapper {
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               width: 100%;
+          }
+     }
+</style>
+
+<body>
+     <header>
+          <nav th:replace="~{components/navbar}" />
+     </header>
+
+     <main class="container">
+          <form class="card form" th:action="@{/auth/login}" method="post">
+               <h1>Login to your account</h1>
+               <div th:if="${param.error}" class="error-message fg-red">
+                    Invalid username or password. Please try again.
+               </div>
+               <input type="email" class="input" placeholder="Your email..." name="username">
+               <input type="password" class="input" placeholder="Your password..." name="password">
+               <div class="btn-wrapper">
+                    <button class="btn btn-primary">
+                         Submit
+                    </button>
+                    <p>
+                         Don&apos;t have an account yet? <a th:href="@{/auth/register}"
+                              class="btn-link fg-hard-green">register!</a>
+                    </p>
+               </div>
+          </form>
+     </main>
+
+     <footer>
+     </footer>
+</body>
+
+</html>
