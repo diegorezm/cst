@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.app.cst.domain.Users.User;
 import com.app.cst.domain.Users.UserDTO;
+import com.app.cst.domain.Users.UserUpdateNameDTO;
 import com.app.cst.services.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class ProfileController {
      public String profilePage(Model model) {
           Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
           User user = (User) authentication.getPrincipal();
-          model.addAttribute("payload", new UserDTO(user.getUsername(), user.getEmail(), ""));
+          model.addAttribute("payload", new UserUpdateNameDTO(user.getUsername()));
           return "pages/dashboard/profile/index";
      }
 
