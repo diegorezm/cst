@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "product_entities")
+@Table(name = "cst_product_entities")
 @Entity
 @Getter
 @Setter

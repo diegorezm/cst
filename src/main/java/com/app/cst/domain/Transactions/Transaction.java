@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.app.cst.domain.Products.Product;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "product_transactions")
+@Table(name = "cst_product_transactions")
 @Entity(name = "product_transactions")
 @Getter
 @Setter

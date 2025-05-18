@@ -1,4 +1,4 @@
-CREATE TABLE product_transactions (
+CREATE TABLE cst_product_transactions (
     id SERIAL PRIMARY KEY,
     product_id INTEGER NOT NULL,
     date TIMESTAMP NOT NULL,

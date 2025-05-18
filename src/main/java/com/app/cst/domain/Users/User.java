@@ -18,8 +18,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Table(name = "cst_users")
 @Entity(name = "users")
-@Table(name = "users")
 @Setter
 @Getter
 @NoArgsConstructor

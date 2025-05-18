@@ -1,4 +1,4 @@
-CREATE TABLE product_entities (
+CREATE TABLE cst_product_entities (
      id SERIAL PRIMARY KEY,
      name VARCHAR(255) NOT NULL UNIQUE,
      price integer not null,

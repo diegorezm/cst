@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import com.app.cst.domain.ProductEntity.ProductEntity;
 import com.app.cst.domain.ProductEntity.ProductEntityDTO;
@@ -19,7 +18,6 @@ import com.github.javafaker.Faker;
 
 import lombok.RequiredArgsConstructor;
 
-@Component
 @RequiredArgsConstructor
 public class AddDummyProducts implements CommandLineRunner {
      private final ProductEntityRepository productEntityRepository;

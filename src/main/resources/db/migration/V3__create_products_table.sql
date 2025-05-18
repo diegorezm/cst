@@ -1,4 +1,4 @@
-CREATE TABLE  products(
+CREATE TABLE  cst_products(
   id SERIAL PRIMARY KEY,
   entity_id INTEGER NOT NULL,
   sold BOOLEAN DEFAULT FALSE,

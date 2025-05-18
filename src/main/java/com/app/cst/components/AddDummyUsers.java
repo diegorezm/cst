@@ -3,7 +3,6 @@ package com.app.cst.components;
 import org.springframework.boot.CommandLineRunner;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import com.app.cst.domain.Users.User;
 import com.app.cst.domain.Users.UserDTO;
@@ -11,7 +10,6 @@ import com.app.cst.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Component
 @RequiredArgsConstructor
 public class AddDummyUsers implements CommandLineRunner {
 

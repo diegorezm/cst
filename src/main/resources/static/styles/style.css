@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 @import url("/styles/utils.css");
 
@@ -8,65 +8,61 @@
 @import url("/styles/components/table.css");
 @import url("/styles/components/form.css");
 
-
 :root {
-     --background: #ffffff;
-     --background-alt: #f5f5f5;
-     --foreground: #000000;
-     --primary-color: #2A9D8F;
-     --secondary-color: #F4A261;
-     --hard-green: #264653;
-     --red: #E76F51;
-     --yellow: #E9C46A;
-     --radius: 0.15em;
+    --background: #ffffff;
+    --background-alt: #f5f5f5;
+    --foreground: #000000;
+    --primary-color: #2a9d8f;
+    --secondary-color: #f4a261;
+    --hard-green: #264653;
+    --red: #e76f51;
+    --yellow: #e9c46a;
+    --radius: 0.5em;
 }
 
 .container {
-     margin-top: 1.8em;
-     padding: 1em 2em 1em;
-     overflow-y: auto;
-     overflow-x: hidden;
+    margin-top: 1.8em;
+    padding: 1em 2em 1em;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .dashboard-container {
-     display: flex;
-     flex-direction: column;
-     gap: 22px;
-     margin-left: 220px;
-     padding: 15px;
-
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-left: 220px;
+    padding: 15px;
 }
 
 hr.dotted {
-     border-top: 3px dotted #bbb;
+    border-top: 3px dotted #bbb;
 }
 
 *,
 *:after,
 *:before {
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
-     text-decoration: none;
-     border: none;
-     list-style: none;
-     background-color: transparent;
-     color: var(--foreground);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    list-style: none;
+    background-color: transparent;
+    color: var(--foreground);
 }
 
 html,
 body {
-     font-family: "Geist", Arial, Helvetica, sans-serif;
-     font-size: 16px;
-     font-optical-sizing: auto;
-     line-height: 1.2;
-     font-weight: 400;
-     font-style: normal;
-     scrollbar-color: var(--foreground) var(--background);
-     scrollbar-width: thin;
-     scroll-behavior: smooth;
-     font-size: 100%;
-     list-style-type: none;
-
-
+    font-family: "Geist", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-optical-sizing: auto;
+    line-height: 1.2;
+    font-weight: 400;
+    font-style: normal;
+    scrollbar-color: var(--foreground) var(--background);
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    font-size: 100%;
+    list-style-type: none;
 }
